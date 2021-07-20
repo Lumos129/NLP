@@ -9,8 +9,8 @@ from sklearn.feature_extraction.text import TfidfTransformer
 
 class HW1(object):
     def __init__(self):
-        dataset_txt = pd.read_csv('hw1-dataset.txt',
-        #dataset_txt = pd.read_csv('https://raw.githubusercontent.com/cjwu/cjwu.github.io/master/courses/nlp/hw1-dataset.txt',
+        #dataset_txt = pd.read_csv('hw1-dataset.txt',
+        dataset_txt = pd.read_csv('https://raw.githubusercontent.com/cjwu/cjwu.github.io/master/courses/nlp/hw1-dataset.txt',
                                   encoding='utf-8',
                                   header=None, sep='\r\n',
                                   engine='python',
@@ -37,7 +37,7 @@ class HW1(object):
         print(self.dataset_values[-10:])
 
     def cut(self):
-        jieba.set_dictionary('dict.txt.big')
+        jieba.set_dictionary('dict.txt')
         for idx in range(len(self.dataset_values)):
             string_line = self.dataset_values[idx][0]
             items_list = jieba.lcut(string_line, cut_all=False, HMM=True)
