@@ -58,22 +58,12 @@ class HW1(object):
 
         print(self.dataset_values[0:10])
 
-    def cut2(self):
-        self.dataset_cut = []
-        for line in self.dataset_values[0:10]:
-            string_line = line[0]
-            items_list = jieba.lcut(string_line, cut_all=False, HMM=True)
-
-            self.dataset_cut.append([item for item in items_list if item not in self.stop_words])
-
-        print(self.dataset_cut[0:10])
-
     def tf(self):
         """
         Term Frequency
         :return:
         """
-        # 构建词汇表
+        # 詞彙表
         self.vocabulary = {}
         for paper in self.dataset_values:
             for term in paper:
@@ -84,7 +74,7 @@ class HW1(object):
 
         #print(self.vocabulary.items())
 
-        # 排序
+        # Sort
         self.top100 = sorted(self.vocabulary.items(), key=lambda k: (k[1]), reverse=True)[0:100]
         print(self.top100)
         #k, v = zip(*self.top100)
@@ -95,7 +85,7 @@ class HW1(object):
         Term Frequency
         :return:
         """
-        # 构建词汇表
+        # 詞彙表
         self.vocabulary = {}
         self.tf = {}
         term_idx = 0
@@ -121,10 +111,10 @@ class HW1(object):
         for key in self.tf:
             self.tf[key] = np.array(self.tf[key])
 
-        # 统计总体词频
+        # 詞頻
         freq = {key: np.sum(self.tf[key]) for key in self.tf}
 
-        # 排序
+        # Sort
         self.freq_sort = sorted(freq.items(), key=lambda k: (k[1]), reverse=True)
         self.freq_top100 = self.freq_sort[0:100]
         print(self.freq_top100)
@@ -136,7 +126,7 @@ class HW1(object):
         Term Frequency
         :return:
         """
-        # 构建词汇表
+        # 詞彙表
         self.vocabulary = {}
         self.tf = {}
         term_idx = 0
@@ -164,11 +154,11 @@ class HW1(object):
         for key in self.tf:
             self.tf[key] = np.array(self.tf[key])
 
-        # 统计总体词频
+        # 詞頻
         freq = {key: np.max(self.tf[key]) for key in self.tf}
         #print(freq)
 
-        # 排序
+        # Sort
         self.freq_sort = sorted(freq.items(), key=lambda k: (k[1]), reverse=True)
         self.freq_top100 = self.freq_sort[0:100]
 
@@ -185,14 +175,14 @@ class HW1(object):
         self.tf_idf = {key: self.tf[key]*idf[key] for key in self.tf}
         tf_idf_max = {key: np.max(value) for key, value in self.tf_idf.items()}
 
-        # 排序
+        # Sort
         tf_idf_sort = sorted(tf_idf_max.items(), key=lambda k: (-k[1]))
         self.tf_idf_top100 = tf_idf_sort[0:100]
         print(self.tf_idf_top100)
 
     def plot(self):
-        plt.rcParams['font.sans-serif'] = ['SimHei']    # 用来正常显示中文标签
-        plt.rcParams['axes.unicode_minus'] = False      # 解决保存图像是负号'-'显示为方块的问题
+        plt.rcParams['font.sans-serif'] = ['SimHei']   
+        plt.rcParams['axes.unicode_minus'] = False      
 
         plt.figure()
         plt.title('Frequency')
@@ -205,7 +195,7 @@ class HW1(object):
         plt.xticks(range(100), terms_id)
         plt.xticks(rotation=90)
 
-        plt.xlabel('字词编号')
+        plt.xlabel('編號')
         plt.ylabel("Frequency")
 
         # TF-DIF
@@ -220,14 +210,14 @@ class HW1(object):
         plt.xticks(range(100), terms_id)
         plt.xticks(rotation=90)
 
-        plt.xlabel('字词编号')
+        plt.xlabel('編號')
         plt.ylabel("TF-IDF")
 
 
 if __name__ == '__main__':
     hw = HW1()
     hw.cut()
-	#hw.tf3()
+	#hw.tf2()
     hw.tf3()
     hw.tf_idf()
 
