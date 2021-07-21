@@ -1,4 +1,3 @@
-
 import numpy as np
 import pandas as pd
 import jieba.analyse
@@ -58,27 +57,6 @@ class HW1(object):
 
         print(self.dataset_values[0:10])
 
-    def tf(self):
-        """
-        Term Frequency
-        :return:
-        """
-        # 詞彙表
-        self.vocabulary = {}
-        for paper in self.dataset_values:
-            for term in paper:
-                if term in self.vocabulary:
-                    self.vocabulary[term] += 1
-                else:
-                    self.vocabulary[term] = 1
-
-        #print(self.vocabulary.items())
-
-        # Sort
-        self.top100 = sorted(self.vocabulary.items(), key=lambda k: (k[1]), reverse=True)[0:100]
-        print(self.top100)
-        #k, v = zip(*self.top100)
-        #print(k, v)
 
     def tf2(self):
         """
