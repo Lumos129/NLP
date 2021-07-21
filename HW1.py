@@ -23,7 +23,7 @@ class HW1(object):
 
         #self.dataset_values = self.read_txt('hw1-dataset.txt')
 
-        self.stop_words = [' ', ',', '.', '?', '\t', '..'] + [str(d) for d in range(10)]
+        self.stop_words = [' ', ',', '.', '?', '\t', '..', '？', '!', '∷', '？'] + [str(d) for d in range(10)]
 
     def read_txt(self, file_name):
         with open(file_name, 'rt', encoding='utf-8') as f:
@@ -53,7 +53,7 @@ class HW1(object):
             items_list = jieba.lcut(string_line, cut_all=False, HMM=True)
             #print(items_list)
 
-            self.dataset_values[idx] = [item for item in items_list]
+            self.dataset_values[idx] = [item for item in items_list if item not in self.stop_words]
             #print(self.dataset_values[idx])
 
         print(self.dataset_values[0:10])
@@ -227,10 +227,10 @@ class HW1(object):
 if __name__ == '__main__':
     hw = HW1()
     hw.cut()
+	#hw.tf3()
     hw.tf3()
     hw.tf_idf()
 
     hw.plot()
     plt.show()
     exit(0)
-
