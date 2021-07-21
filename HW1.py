@@ -53,7 +53,7 @@ class HW1(object):
             items_list = jieba.lcut(string_line, cut_all=False, HMM=True)
             #print(items_list)
 
-            self.dataset_values[idx] = [item for item in items_list if len(item) > 1]
+            self.dataset_values[idx] = [item for item in items_list]
             #print(self.dataset_values[idx])
 
         print(self.dataset_values[0:10])
@@ -131,6 +131,51 @@ class HW1(object):
         #k, v = zip(*self.freq_top100)
         #print(k, v)
 
+    def tf3(self):
+        """
+        Term Frequency
+        :return:
+        """
+        # 构建词汇表
+        self.vocabulary = {}
+        self.tf = {}
+        term_idx = 0
+        for paper in self.dataset_values:
+            terms_paper = {}
+            lenn = len(paper)
+            #print(lenn)
+            for term in paper:
+                if term not in self.vocabulary:
+                    self.vocabulary[term] = term_idx
+                    term_idx += 1
+
+                if term in terms_paper:
+                    terms_paper[term] += 1
+                else:
+                    terms_paper[term] = 1
+
+            for key in terms_paper:
+                if key in self.tf:
+                    self.tf[key].append(terms_paper[key]/lenn)
+                else:
+                    self.tf[key] = [terms_paper[key]/lenn]
+
+        # self.tf的value由list转为np.array
+        for key in self.tf:
+            self.tf[key] = np.array(self.tf[key])
+
+        # 统计总体词频
+        freq = {key: np.max(self.tf[key]) for key in self.tf}
+        #print(freq)
+
+        # 排序
+        self.freq_sort = sorted(freq.items(), key=lambda k: (k[1]), reverse=True)
+        self.freq_top100 = self.freq_sort[0:100]
+
+        print(self.freq_top100)
+        #k, v = zip(*self.freq_top100)
+        #print(k, v)
+
     def tf_idf(self):
         n = len(self.dataset_values)
         
@@ -182,7 +227,7 @@ class HW1(object):
 if __name__ == '__main__':
     hw = HW1()
     hw.cut()
-    hw.tf2()
+    hw.tf3()
     hw.tf_idf()
 
     hw.plot()
