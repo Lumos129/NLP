@@ -234,15 +234,3 @@ if __name__ == '__main__':
     plt.show()
     exit(0)
 
-
-
-
-mydata_txt = pd.read_csv('https://raw.githubusercontent.com/cjwu/cjwu.github.io/master/courses/nlp/hw1-dataset.txt',
-                         encoding='utf-8',
-                         error_bad_lines=False)
-
-#mydata_txt = pd.read_csv('hw1-dataset.txt', encoding='utf-8', header=None)
-print(mydata_txt)
-
-#with open('https://raw.githubusercontent.com/cjwu/cjwu.github.io/master/courses/nlp/hw1-dataset.txt', 'rt', ) as f:
-#    print(f.readlines())
