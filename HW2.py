@@ -19,7 +19,7 @@ idx = 0
 max_movies = 0
 
 
-# 电影类定义
+
 class Movie(object):
     def __init__(self):
         self.url = None
@@ -66,7 +66,7 @@ def clean_story_str(s):
              ord('\n'): None,
              ord('\r'): None  # Deleted
              }
-    return s.translate(remap).strip()  # 删除头尾之空格
+    return s.translate(remap).strip()
 
 
 def clean_str(s):
@@ -75,7 +75,7 @@ def clean_str(s):
              ord('\n'): None,
              ord('\r'): None
              }
-    return s.translate(remap).strip()  # 删除头尾之空格
+    return s.translate(remap).strip()
 
 
 def is_internal_link(href, key_words='movies.yahoo.com.tw'):
@@ -172,7 +172,7 @@ def parse(url, homepage):
     print(sys._getframe().f_code.co_name)
     print(url)
 
-    # url请求, 依赖网络与服务器, 耗时最长
+
     try:
         response = requests.get(url)  # timeout=？？？
         # print('requests.get is done')
@@ -187,22 +187,20 @@ def parse(url, homepage):
         print('requests.get is error', e)
         return False
 
-    # 格式：\033[显示方式;前景色;背景色m
-
     soup = BeautifulSoup(response.text, 'lxml')
 
-    # 尝试解析href, on CPU
+
     get_href(soup, homepage)
 
-    # 尝试解析movies, on CPU
+
     get_movies(soup, url)
-    # get_movies_with_goose(soup, url)
+
 
     return True
 
 
 def spider(homepage):
-    url_queue.add(homepage)  # homepage最先加入队列
+    url_queue.add(homepage)
 
     while url_queue:
         if idx > max_movies:
@@ -220,7 +218,7 @@ def spider(homepage):
 if __name__ == '__main__':
     from urllib.parse import urlparse
 
-    # 网站主页list
+
     homepages = [
         "https://movies.yahoo.com.tw/movieinfo_main/LIP-X-LIP%E4%BA%AB%E5%8F%97%E9%80%99%E4%B8%96%E7%95%8C%E7%9A%84%E6%96%B9%E6%B3%95-lip-x-lip-film-x-live-11364"]
 
