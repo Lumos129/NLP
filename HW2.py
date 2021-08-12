@@ -230,7 +230,7 @@ if __name__ == '__main__':
     #homepages = ["https://movies.yahoo.com.tw/"]
 
     #print(urlparse(homepages[0]).netloc)
-    max_movies = 5
+    max_movies = 6000
 
     #writer = csv.DictWriter(csv_file, fieldnames=Movie().csv_header())
     #writer.writeheader()
