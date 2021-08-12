@@ -10,8 +10,6 @@ import queue
 import jieba
 from collections import Counter
 
-# from goose3 import Goose
-# from goose3.text import StopWordsChinese
 
 import threading
 
@@ -107,7 +105,6 @@ class SpiderThread(threading.Thread):
         self.th = thread_id
         self.g_var = global_var
 
-        # self.g = Goose({'stopwords_class': StopWordsChinese})
 
     def is_old(self, url):
         if url in url_old:
@@ -126,12 +123,8 @@ class SpiderThread(threading.Thread):
 
         movie = Movie()
 
-        # 类名为xxx而且文本内容为hahaha的div
-        # for k in soup.find_all('div', class='movie_intro_list'):        #,string='更多'
-        # print(k)
         movie_intro_info_r = soup.find_all('div', attrs={'class': 'movie_intro_info_r'})
 
-        # <div class="atcTit_more"><span class="SG_more"><a href="http://blog.sina.com.cn/" target="_blank">更多&gt;&gt;</a></span></div>
 
         try:
             # title
@@ -215,29 +208,21 @@ class SpiderThread(threading.Thread):
     # 解析url
     def parse_thread(self, url):
         import sys
-        # print(sys._getframe().f_code.co_name, self.th)
 
-        # url请求, 依赖网络与服务器, 耗时最长
         try:
             response = requests.get(url, timeout=5)
             response.encoding = 'utf-8'  # 应对中文网站编码的变化！'gb18030'
             # print('requests.get is done', self.th)
             print(url, self.th)
         except:
-            # err_file.write(url+'\n')
-            # print('requests.get is error', th)
 
-            # 控制台输出红色字体
             print('\33[0;31m', end='')
             print('requests.get is error', self.th, end='')
             print('\33[0m')
             print(url, self.th)
             return False
 
-        """def __init__(self, markup="", features=None, builder=None,
-                 parse_only=None, from_encoding=None, exclude_encodings=None,
-                 **kwargs):
-                 """
+
         soup = BeautifulSoup(response.text, 'lxml')
 
         # 尝试解析href, on CPU
@@ -249,10 +234,7 @@ class SpiderThread(threading.Thread):
         return True
 
     def spider_thread(self):
-        """
-        实际的线程入口函数
-        :return:
-        """
+
         import sys
         print(sys._getframe().f_code.co_name, self.th)
 
@@ -265,12 +247,6 @@ class SpiderThread(threading.Thread):
             if self.g_var.idx > self.g_var.max_movies:
                 break
 
-            # print(self.g_var.idx, self.g_var.max_movies)
-
-            # 检查终止条件(文件Stop.txt)
-            # if is_stop():
-            #    print('thread', th, 'stop')
-            #    return False
 
             lock.acquire()  # lock资源
             if len(url_set) != 0:
@@ -321,7 +297,7 @@ if __name__ == '__main__':
     # homepages = ['https://movies.yahoo.com.tw/']
 
     total_thread = 1000
-    max_movies = 6000
+    max_movies = 100
 
     # csv文件头
     field_names = ['Title', 'Type', 'Date', 'Story']
