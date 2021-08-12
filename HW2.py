@@ -111,7 +111,7 @@ def get_href(soup, homepage=''):
     anchors = soup.find_all('a', href=True)
     for anchor in anchors:
         href_content = anchor['href']
-        if is_yahoo_com_tw(href_content):  # 是否是本网站内链接
+        if is_yahoo_com_tw(href_content):
             if not is_old(href_content):
                 url_queue.add(href_content)  # append
 
@@ -208,7 +208,7 @@ def spider(homepage):
 
         url = url_queue.pop()
 
-        if not is_old(url):  # 查重
+        if not is_old(url):
             url_old.add(url)
             if parse(url=url, homepage=homepage):
                 time.sleep(1)
