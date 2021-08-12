@@ -221,7 +221,7 @@ if __name__ == '__main__':
     homepages = [
         "https://movies.yahoo.com.tw/movieinfo_main/LIP-X-LIP%E4%BA%AB%E5%8F%97%E9%80%99%E4%B8%96%E7%95%8C%E7%9A%84%E6%96%B9%E6%B3%95-lip-x-lip-film-x-live-11364"]
 
-    max_movies = 50
+    max_movies = 6000
 
     Movie().csv_header_write(csv_file)
 
