@@ -5,9 +5,6 @@ import time
 import csv
 import numpy as np
 
-#from goose3 import Goose
-#from goose3.text import StopWordsChinese
-
 
 csv_file = open('movies_st.csv', 'a', newline='', encoding="utf-8")
 csv_writer = csv.writer(csv_file)
@@ -48,21 +45,13 @@ class Movie(object):
         csv_data_writer.writerow(self.csv_data())
 
     def csv_header_write(self, csv_file_handle):
-        """
 
-        :param csv_file_handle: open('***.csv', 'a', newline='', encoding="utf-8")
-        :return:
-        """
         header_writer = csv.DictWriter(csv_file_handle, fieldnames=self.csv_header())
         header_writer.writeheader()
 
 
 def clean_type_str(s):
-    """
-    del \t, \n, \r, space
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,
              ord('\n'): None,
              ord('\r'): None,
@@ -72,11 +61,7 @@ def clean_type_str(s):
 
 
 def clean_story_str(s):
-    """
-    Delete \t, \n, \r first. Then delete space in head and end.
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,   # del \t
              ord('\n'): None,
              ord('\r'): None    # Deleted
@@ -85,11 +70,7 @@ def clean_story_str(s):
 
 
 def clean_str(s):
-    """
-    Delete \t, \n, \r first. Then delete space in head and end.
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,   # del \t
              ord('\n'): None,
              ord('\r'): None
@@ -190,116 +171,6 @@ def get_movies(soup, url):
         err_writer.writerow([url])
         print(e)
 
-        """
-        #if not is_news_ltn_com_tw(url):
-        #    return False
-    
-        article = soup.find('script', attrs={"type": "application/ld+json"})
-        #print(article.text)
-    
-        if article:
-            try:
-                article_dict = json.loads(article.text)
-                title = article_dict['headline']
-                date = article_dict['datePublished']
-                keywords = article_dict['keywords']
-                author = article_dict['author']['name']
-                publisher = article_dict['publisher']['name']
-    
-                keywords = keywords.split(',')
-                for kw in keywords:
-                    kw.strip()      # 删除左右空格
-    
-                idx = idx+1
-                print(idx)
-    
-                print("标题:", title)
-                print("日期:", date)
-                print("关键词:", keywords)
-                print("作者:", author)
-                print("发布者:", publisher, "\r\n")
-                #csv_writer.writerow([title, date, keywords, author, publisher, url])
-    
-                return True
-            except:
-                return False
-        else:
-            return False
-        """
-
-
-def get_movies_with_goose(soup, url):
-    import sys
-    print(sys._getframe().f_code.co_name)
-
-    global idx
-
-    if not is_yahoo_movies_info(url):
-        return False
-
-    movie = Movie()
-
-
-    # 类名为xxx而且文本内容为hahaha的div
-    #for k in soup.find_all('div', class='movie_intro_list'):        #,string='更多'
-    movie_intro_info_r = soup.find_all('div', attrs={'class': 'movie_intro_info_r'})       #,string='更多'
-    #print(k)
-    #<div class="atcTit_more"><span class="SG_more"><a href="http://blog.sina.com.cn/" target="_blank">更多&gt;&gt;</a></span></div>
-
-    title = movie_intro_info_r[0].h1
-    #print(title)
-    movie.title = title.contents[0]
-
-    movie_type = movie_intro_info_r[0].a
-    #print(movie_type)
-    movie.type = clean_str(movie_type.contents[0])
-
-    #g = Goose({'stopwords_class': StopWordsChinese})
-    story = g.extract(url=url)
-    #article = self.g.extract(raw_html=response.content)
-    content = story.cleaned_text
-    #print(content)
-    movie.story = story.cleaned_text
-
-    print(movie)
-
-    """
-    #if not is_news_ltn_com_tw(url):
-    #    return False
-
-    article = soup.find('script', attrs={"type": "application/ld+json"})
-    #print(article.text)
-
-    if article:
-        try:
-            article_dict = json.loads(article.text)
-            title = article_dict['headline']
-            date = article_dict['datePublished']
-            keywords = article_dict['keywords']
-            author = article_dict['author']['name']
-            publisher = article_dict['publisher']['name']
-
-            keywords = keywords.split(',')
-            for kw in keywords:
-                kw.strip()      # 删除左右空格
-
-            idx = idx+1
-            print(idx)
-
-            print("标题:", title)
-            print("日期:", date)
-            print("关键词:", keywords)
-            print("作者:", author)
-            print("发布者:", publisher, "\r\n")
-            #csv_writer.writerow([title, date, keywords, author, publisher, url])
-
-            return True
-        except:
-            return False
-    else:
-        return False
-    """
-
 
 def parse(url, homepage):
     import sys
@@ -359,7 +230,7 @@ if __name__ == '__main__':
     #homepages = ["https://movies.yahoo.com.tw/"]
 
     #print(urlparse(homepages[0]).netloc)
-    max_movies = 200
+    max_movies = 5
 
     #writer = csv.DictWriter(csv_file, fieldnames=Movie().csv_header())
     #writer.writeheader()
