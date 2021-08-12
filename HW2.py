@@ -5,9 +5,6 @@ import time
 import csv
 import numpy as np
 
-# from goose3 import Goose
-# from goose3.text import StopWordsChinese
-
 
 csv_file = open('movies_st.csv', 'a', newline='', encoding="utf-8")
 csv_writer = csv.writer(csv_file)
@@ -48,21 +45,13 @@ class Movie(object):
         csv_data_writer.writerow(self.csv_data())
 
     def csv_header_write(self, csv_file_handle):
-        """
 
-        :param csv_file_handle: open('***.csv', 'a', newline='', encoding="utf-8")
-        :return:
-        """
         header_writer = csv.DictWriter(csv_file_handle, fieldnames=self.csv_header())
         header_writer.writeheader()
 
 
 def clean_type_str(s):
-    """
-    del \t, \n, \r, space
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,
              ord('\n'): None,
              ord('\r'): None,
@@ -72,11 +61,7 @@ def clean_type_str(s):
 
 
 def clean_story_str(s):
-    """
-    Delete \t, \n, \r first. Then delete space in head and end.
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,  # del \t
              ord('\n'): None,
              ord('\r'): None  # Deleted
@@ -85,11 +70,7 @@ def clean_story_str(s):
 
 
 def clean_str(s):
-    """
-    Delete \t, \n, \r first. Then delete space in head and end.
-    :param s:
-    :return:
-    """
+
     remap = {ord('\t'): None,  # del \t
              ord('\n'): None,
              ord('\r'): None
@@ -122,9 +103,6 @@ def is_old(url):
         return False
 
 
-########################################
-########################################
-
 
 def get_href(soup, homepage=''):
     import sys
@@ -151,9 +129,7 @@ def get_movies(soup, url):
 
     movie = Movie()
 
-    # 类名为xxx而且文本内容为hahaha的div
-    # for k in soup.find_all('div', class='movie_intro_list'):        #,string='更多'
-    # print(k)
+
     movie_intro_info_r = soup.find_all('div', attrs={'class': 'movie_intro_info_r'})
     movie_intro_info = movie_intro_info_r[0]
 
@@ -247,9 +223,7 @@ if __name__ == '__main__':
     # 网站主页list
     homepages = [
         "https://movies.yahoo.com.tw/movieinfo_main/LIP-X-LIP%E4%BA%AB%E5%8F%97%E9%80%99%E4%B8%96%E7%95%8C%E7%9A%84%E6%96%B9%E6%B3%95-lip-x-lip-film-x-live-11364"]
-    # homepages = ["https://movies.yahoo.com.tw/"]
 
-    # print(urlparse(homepages[0]).netloc)
     max_movies = 50
 
     Movie().csv_header_write(csv_file)
