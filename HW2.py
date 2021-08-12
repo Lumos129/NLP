@@ -214,7 +214,6 @@ def spider(homepage):
                 time.sleep(1)
 
 
-# 单线程spider
 if __name__ == '__main__':
     from urllib.parse import urlparse
 
