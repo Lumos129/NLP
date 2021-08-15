@@ -97,7 +97,7 @@ class MoviesClassifierKnn(object):
 
         #print(classification_report(y_true, y_predict, zero_division=0))
 
-        target_names = [self.y_cat.cat.categories[n] for n in set(y_true)]     # set(y_true)????
+        target_names = [self.y_cat.cat.categories[n] for n in set(y_true)]
         print(classification_report(y_true, y_predict, zero_division=0, target_names=target_names))
 
     def load_csv(self, csv_file):
