@@ -14,7 +14,7 @@ class MoviesClassifierKnn(object):
 
         self.knn = KNeighborsClassifier(n_neighbors=n_neighbors, weights='distance')
 
-        # 初始化(实例化)
+
         self.vectorizer = CountVectorizer(max_features=None)
         self.tf_idf_transformer = TfidfTransformer()
 
@@ -63,7 +63,7 @@ class MoviesClassifierKnn(object):
 
         print('jieba cutting.....')
 
-        jieba.setLogLevel(jieba.logging.INFO)   # 引入jieba模块后加入该代码，代码即可不报警
+        jieba.setLogLevel(jieba.logging.INFO)
         jieba.set_dictionary('dict.txt')
 
         docs_list = []
@@ -111,10 +111,9 @@ class MoviesClassifierKnn(object):
         #print(data_csv.head())
         #print(data_csv.info())
 
-        # 清理数量过少的类型
+
         data_csv = self.clean_csv(data_csv, key='Type', n_min=50)
 
-        # 统计影片类型分布
         movie_type_set = set(data_csv['Type'].values)
         for movie_type in movie_type_set:
             print(movie_type, data_csv[data_csv['Type'] == movie_type].values.shape[0])
@@ -122,7 +121,6 @@ class MoviesClassifierKnn(object):
         X = data_csv['Story']
         y = data_csv['Type']
 
-        # 文本类别-转-数字类别
         self.y_cat = y.astype('category')
         self.num_category = len(set(self.y_cat.values))
 
@@ -140,19 +138,11 @@ class MoviesClassifierKnn(object):
                                                                                             test_size=500)   # seed固定, 实验结果可再现
 
     def clean_csv(self, csv_data, key=None, n_min=1):
-        """
-        清理数量过少的类型, 清理特定类型影片
-        :param csv_data:
-        :param key:
-        :param n_min:
-        :return:
-        """
-        # 清理数量过少的类型
+
         for item in set(csv_data[key].values):
             if len(csv_data[csv_data[key] == item].values) < n_min:
                 csv_data = csv_data[~csv_data[key].str.contains(item, regex=False)]
 
-        # 清理特定类型影片
         #csv_data = csv_data[~csv_data['Type'].str.contains('影展', regex=False)]
         return csv_data
 
