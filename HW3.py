@@ -58,7 +58,7 @@ class MoviesClassifierKnn(object):
 
         import jieba.analyse
 
-        print('jieba cutting.....')
+        #print('jieba cutting.....')
 
         jieba.setLogLevel(jieba.logging.INFO)
         jieba.set_dictionary('dict.txt')
@@ -73,18 +73,18 @@ class MoviesClassifierKnn(object):
 
 
     def knn_train(self):
-        print('knn training ...')
+        #print('knn training ...')
         self.knn.fit(self.training_x_vec, self.training_y)
 
     def knn_test(self, training_data=None):
-        print('knn testing ...')
+        #print('knn testing ...')
         predictions = self.knn.predict(self.training_x_vec)
         self.performance(self.training_y, predictions)
         return predictions
 
 
     def knn_predict(self, testing_data=None):
-        print('knn predicting ...')
+        #print('knn predicting ...')
         predictions = self.knn.predict(self.testing_x_vec)
         #print(np.mean(predictions == self.testing_y))
 
@@ -126,13 +126,11 @@ class MoviesClassifierKnn(object):
 
 
         self.y_num = self.y_cat.cat.codes.values
-        #print(type(self.y_num), self.y_num, '\n')
-        #print(yd.cat.categories[0], '\n')
-        #self.target_names = [self.yd.cat.categories[n] for n in range(self.num_category)]
+
 
         self.training_x, self.testing_x, self.training_y, self.testing_y = train_test_split(X, self.y_num,
                                                                                             #random_state=200,
-                                                                                            test_size=500)   # seed固定, 实验结果可再现
+                                                                                            test_size=500)
 
     def clean_csv(self, csv_data, key=None, n_min=1):
 
