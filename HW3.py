@@ -55,10 +55,7 @@ class MoviesClassifierKnn(object):
         print(self.testing_x_vec.shape)
 
     def cut(self, docs):
-        """
-        Cut with jieba
-        :return:
-        """
+
         import jieba.analyse
 
         print('jieba cutting.....')
@@ -74,7 +71,7 @@ class MoviesClassifierKnn(object):
 
         return docs_list
 
-    # kNN Training
+
     def knn_train(self):
         print('knn training ...')
         self.knn.fit(self.training_x_vec, self.training_y)
@@ -85,7 +82,7 @@ class MoviesClassifierKnn(object):
         self.performance(self.training_y, predictions)
         return predictions
 
-    # kNN Algorithm
+
     def knn_predict(self, testing_data=None):
         print('knn predicting ...')
         predictions = self.knn.predict(self.testing_x_vec)
@@ -127,7 +124,7 @@ class MoviesClassifierKnn(object):
         print('\ny_cat.values: ', set(self.y_cat.values))
         print('category numbers: ', self.num_category, '\n')
 
-        # 数字类别
+
         self.y_num = self.y_cat.cat.codes.values
         #print(type(self.y_num), self.y_num, '\n')
         #print(yd.cat.categories[0], '\n')
