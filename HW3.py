@@ -58,7 +58,7 @@ class MoviesClassifierKnn(object):
 
         import jieba.analyse
 
-        #print('jieba cutting.....')
+        print('jieba cutting.....')
 
         jieba.setLogLevel(jieba.logging.INFO)
         jieba.set_dictionary('dict.txt')
@@ -73,18 +73,18 @@ class MoviesClassifierKnn(object):
 
 
     def knn_train(self):
-        #print('knn training ...')
+        print('knn training ...')
         self.knn.fit(self.training_x_vec, self.training_y)
 
     def knn_test(self, training_data=None):
-        #print('knn testing ...')
+        print('knn testing ...')
         predictions = self.knn.predict(self.training_x_vec)
         self.performance(self.training_y, predictions)
         return predictions
 
 
     def knn_predict(self, testing_data=None):
-        #print('knn predicting ...')
+        print('knn predicting ...')
         predictions = self.knn.predict(self.testing_x_vec)
         #print(np.mean(predictions == self.testing_y))
 
