@@ -65,7 +65,7 @@ class HW4(object):
                     if idx % 1000 == 0:
                         print(len(lines_rd)-idx)
 
-               
+
 
     def train(self):
         word2vec.word2vec(self.corpus_cut, self.model_file, size=100, verbose=True, window=5)
@@ -74,16 +74,16 @@ class HW4(object):
     def predict(self, term='數學'):
         print('predict:')
         model = word2vec.load(self.model_file)
-        print(model.vocab)              # 词汇表
+        print(model.vocab)
         print(model.vectors.shape)
-        print(model.vectors)            # 词向量
+        print(model.vectors)
         print(model[term].shape)
-        print(model[term])              # term的词向量
+        print(model[term])
 
     def test(self, term='數學'):
         print('test:')
         model = word2vec.load(self.model_file)
-        indexes, metrics = model.cosine(term, n=20)     # 輸出前二十個相關詞之索引及相关度
+        indexes, metrics = model.cosine(term, n=20)
         print(indexes, '\n', metrics)
         print(model.vocab[indexes])
         print(model.generate_response(indexes, metrics).tolist())
@@ -94,4 +94,4 @@ if __name__ == '__main__':
     #hw4.prepare_corpus()
     #hw4.train()
     hw4.predict(term='數學')
-    hw4.test(term='知')
+    hw4.test(term='知恩')
