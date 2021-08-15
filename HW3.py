@@ -7,7 +7,7 @@ from sklearn.feature_extraction.text import TfidfTransformer
 
 
 class MoviesClassifierKnn(object):
-    def __init__(self, csv_file_name='movies_mt2_sort.csv', n_neighbors=5):
+    def __init__(self, csv_file_name='HW2.csv', n_neighbors=5):
         self.n_neighbors = n_neighbors
 
         self.load_csv(csv_file_name)
