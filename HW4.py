@@ -19,13 +19,11 @@ class HW4(object):
         self.stop_words = ['\n', '\t', '\r', '，', '；',  '、', '。']
 
     def prepare_corpus(self):
-        # 加载合并语料库
+
         self.load_corpus()
 
-        # 简繁转化
         os.system('openCC.bat')
 
-        # 分词
         self.cut()
 
     def load_corpus(self):
